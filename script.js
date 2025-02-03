@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("uploadForm");
   const resultDiv = document.getElementById("result");
   const questionsList = document.getElementById("questionsList");
+  const downloadButtonContainer = document.getElementById(
+    "downloadButtonContainer"
+  );
+  const downloadPDFButton = document.getElementById("downloadPDF");
 
   function displayMCQ(data, type) {
     console.log("Question Answers", data, type);
@@ -119,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const formData = new FormData(form);
     const submitButton = form.querySelector('button[type="submit"]');
     const loadingBar = document.getElementById("loadingBar");
@@ -128,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingBar.classList.remove("hidden");
 
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch("http://203.161.62.67:8005/upload", {
         method: "POST",
         body: formData,
       });
@@ -156,6 +159,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         questionsList.innerHTML = displayContent;
+        // Show the download button after questions are displayed
+        downloadButtonContainer.classList.remove("hidden");
       } else {
         throw new Error("Failed to upload file and generate questions");
       }
@@ -173,4 +178,17 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingBar.classList.add("hidden");
     }
   });
+
+  // Add event listener for the download PDF button
+  if (downloadPDFButton) {
+    downloadPDFButton.addEventListener("click", async () => {
+      console.log("PDF Download");
+      var doc = new jsPDF();
+      var pdf = document.getElementById("questionsList");
+      doc.fromHTML(pdf, 15, 15);
+      doc.save("Question.pdf");
+    });
+  } else {
+    console.error("Download PDF button not found in the DOM");
+  }
 });

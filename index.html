@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF Question Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
       @keyframes loading {
         0% {
@@ -16,6 +17,11 @@
       }
       .loading-animation {
         animation: loading 10s linear infinite;
+      }
+      #questionsList {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
       }
     </style>
   </head>
@@ -89,11 +95,23 @@
           </div>
         </form>
       </div>
+
       <div id="result" class="hidden">
+        <!-- Question Show UI -->
         <div id="questionsList"></div>
+        <!-- Download PDF UI -->
+        <div id="downloadButtonContainer" class="mt-4 text-center hidden">
+          <button
+            id="downloadPDF"
+            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Download PDF
+          </button>
+        </div>
       </div>
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
   </body>
 </html>
