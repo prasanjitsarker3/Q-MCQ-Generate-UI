@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Question Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes loading {
+        0% {
+          width: 0;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+      .loading-animation {
+        animation: loading 10s linear infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4">
+      <div class="max-w-md mx-auto bg-white rounded-sm mt-2 py-3 px-6">
+        <h1 class="text-lg font-normal mb-3 text-center">
+          PDF Question and MCQ Generator
+        </h1>
+        <form id="uploadForm" class="space-y-5">
+          <div>
+            <label for="pdfFile" class="block text-sm text-gray-800"
+              >Upload PDF:</label
+            >
+            <input
+              type="file"
+              id="pdfFile"
+              name="pdf"
+              accept="application/pdf"
+              required
+              class="mt-1 block bg-gray-100 cursor-pointer w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm"
+            />
+          </div>
+
+          <div class="flex justify-between gap-4">
+            <div class="w-full">
+              <label for="questionType" class="block text-sm text-gray-800"
+                >Question Type:</label
+              >
+              <select
+                id="questionType"
+                name="questionType"
+                required
+                class="mt-1 bg-gray-100 cursor-pointer block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
+              >
+                <option value="MCQ">MCQ</option>
+                <option value="Short Question">Short Question</option>
+                <option value="Long Question">Long Question</option>
+              </select>
+            </div>
+            <div class="w-full">
+              <label for="difficulty" class="block text-sm text-gray-800"
+                >Difficulty:</label
+              >
+              <select
+                id="difficulty"
+                name="difficulty"
+                required
+                class="mt-1 bg-gray-100 cursor-pointer block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm"
+              >
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
+          >
+            Generate Questions
+          </button>
+          <div
+            id="loadingBar"
+            class="hidden w-full h-2 bg-gray-200 rounded-full overflow-hidden"
+          >
+            <div
+              class="h-full bg-cyan-600 rounded-full loading-animation"
+            ></div>
+          </div>
+        </form>
+      </div>
+      <div id="result" class="hidden">
+        <div id="questionsList"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
