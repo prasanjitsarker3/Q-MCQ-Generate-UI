@@ -135,10 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         body: formData,
         mode: "cors",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        credentials: "omit",
       });
 
       if (response.ok) {
