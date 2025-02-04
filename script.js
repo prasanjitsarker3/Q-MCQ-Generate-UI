@@ -131,7 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingBar.classList.remove("hidden");
 
     try {
-      const response = await fetch("https://203.161.62.67:8005/upload", {
+      const apiUrl =
+        "https://corsproxy.io/?" +
+        encodeURIComponent("http://203.161.62.67:8005/upload");
+      const response = await fetch(apiUrl, {
         method: "POST",
         body: formData,
         mode: "cors",
