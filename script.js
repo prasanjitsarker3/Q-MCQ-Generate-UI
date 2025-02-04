@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingBar.classList.remove("hidden");
 
     try {
-      const response = await fetch("http://localhost:5000/upload", {
+      const response = await fetch("http://203.161.62.67:8005/upload", {
         method: "POST",
         body: formData,
       });
