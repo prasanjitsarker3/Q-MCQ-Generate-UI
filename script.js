@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("http://203.161.62.67:8005/upload", {
         method: "POST",
         body: formData,
+        mode: "cors",
       });
 
       if (response.ok) {
