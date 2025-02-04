@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingBar.classList.remove("hidden");
 
     try {
-      const response = await fetch("http://203.161.62.67:8005/upload", {
+      const response = await fetch("http://localhost:5000/upload", {
         method: "POST",
         body: formData,
       });
@@ -142,6 +142,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         resultDiv.classList.remove("hidden");
         resultDiv.className = "max-w-4xl mx-auto mt-8 p-4";
+
+        if (data.result.data.length === 0) {
+          questionsList.innerHTML = `
+            <div class="bg-yellow-50 text-yellow-600 p-4 rounded-md text-center">
+              <p>Please try re-generating.</p>
+            </div>
+          `;
+          resultDiv.classList.remove("hidden");
+          downloadButtonContainer.classList.add("hidden");
+          return;
+        }
 
         let displayContent = "";
         if (data.result.type === "MCQ") {
@@ -182,11 +193,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listener for the download PDF button
   if (downloadPDFButton) {
     downloadPDFButton.addEventListener("click", async () => {
-      console.log("PDF Download");
-      var doc = new jsPDF();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
       var pdf = document.getElementById("questionsList");
-      doc.fromHTML(pdf, 15, 15);
-      doc.save("Question.pdf");
+      html2canvas(pdf).then((canvas) => {
+        let imgData = canvas.toDataURL("image/png");
+        let imgWidth = 190;
+        let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+        doc.save("Question.pdf");
+      });
     });
   } else {
     console.error("Download PDF button not found in the DOM");
