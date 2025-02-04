@@ -131,10 +131,13 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingBar.classList.remove("hidden");
 
     try {
-      const response = await fetch("https://203.161.62.67:8005/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://question-mcq-generate.onrender.com/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
