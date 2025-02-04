@@ -131,10 +131,11 @@ document.addEventListener("DOMContentLoaded", () => {
     loadingBar.classList.remove("hidden");
 
     try {
-      const response = await fetch("http://203.161.62.67:8005/upload", {
+      const response = await fetch("https://203.161.62.67:8005/upload", {
         method: "POST",
         body: formData,
-        mode: "cors",
+        mode: "no-cors",
+        credentials: "omit",
       });
 
       if (response.ok) {
